@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import NotLoggedIn from "./Components/NotLoggedIn";
+import MainScrean from "./Components/MainScrean";
+import Loading from "./Components/Loading";
 
 // Hvis server ikke er oppe kommer vi fortsatt til login... ikke bra
 
 const validateToken = (token) => {
-  console.log("Hei");
   return fetch(`https://localhost:7168/user?tokenFromClient=${token}`, {
     method: "GET",
   })
     .then((response) => response.json())
-    .then((user) => !!user); // Convert truthy/falsy values to boolean
+    .then((user) => user.value != "Ugyldig");
 };
 
 const App = () => {
@@ -19,7 +20,6 @@ const App = () => {
 
   useEffect(() => {
     const sessionToken = localStorage.getItem("sessionToken");
-    console.log(sessionToken);
     if (sessionToken) {
       setLoading(true);
       validateToken(sessionToken)
@@ -39,7 +39,7 @@ const App = () => {
   }, [localStorage.getItem("sessionToken")]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!hasValidToken) {
@@ -52,7 +52,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Kake</h2>
+      <MainScrean />
     </div>
   );
 };
