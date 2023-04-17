@@ -6,11 +6,8 @@ import NotLoggedIn from "./Components/NotLoggedIn";
 
 const validateToken = (token) => {
   console.log("Hei");
-  return fetch("https://localhost:7168/user", {
+  return fetch(`https://localhost:7168/user?tokenFromClient=${token}`, {
     method: "GET",
-    headers: {
-      tokenFromClient: token,
-    },
   })
     .then((response) => response.json())
     .then((user) => !!user); // Convert truthy/falsy values to boolean
