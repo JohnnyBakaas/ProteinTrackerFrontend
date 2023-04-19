@@ -5,8 +5,7 @@
 // Lykke til!
 
 import React, { useState } from "react";
-
-const userId = localStorage.getItem("userId");
+import MainScrean from "./MainScrean";
 
 const postUpdateUser = (kcalDelta, token) => {
   fetch(`https://localhost:7168/updateUser?${token}`, {
@@ -16,7 +15,7 @@ const postUpdateUser = (kcalDelta, token) => {
     },
     body: JSON.stringify({
       userName: "",
-      id: userId,
+      id: localStorage.getItem("userId"),
       kcalDelta,
       gender: "",
       meals: [],
@@ -26,62 +25,58 @@ const postUpdateUser = (kcalDelta, token) => {
 };
 
 const UpdateUser = () => {
-  const [kcalGoal, setKcalGoal] = useState("");
-  const [showKcalInput, setShowKcalInput] = useState(false);
-  const [kcalDelta, setKcalDelta] = useState(0);
-
-  const handleKcalGoalChange = (e) => {
-    setKcalGoal(e.target.value);
-    setShowKcalInput(e.target.value === "cut" || e.target.value === "bulk");
-    setKcalDelta(0);
+  const [takeMeBack, setTakeMeBack] = useState(false);
+  const handleTakeMeBack = () => {
+    setTakeMeBack(true);
   };
 
-  const handleKcalDeltaChange = (e) => {
-    const delta = parseInt(e.target.value);
-    setKcalDelta(kcalGoal === "cut" ? -delta : delta);
-  };
+  const handleKcalGoalChange = () => {};
+  const handleSubmit = () => {};
+  var kcalGoal;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("sessionToken");
-    postUpdateUser(kcalDelta, token);
-    setKcalGoal("");
-    setShowKcalInput(false);
-    setKcalDelta(0);
-  };
-
+  if (takeMeBack) return <MainScrean />;
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="kcalGoal">Kcal Goal:</label>
-        <select
-          id="kcalGoal"
-          value={kcalGoal}
-          onChange={handleKcalGoalChange}
-          required
-        >
-          <option value="">Select Goal</option>
-          <option value="cut">Cut</option>
-          <option value="bulk">Bulk</option>
-          <option value="maintain">Maintain</option>
-        </select>
-
-        {showKcalInput && (
-          <>
-            <label htmlFor="kcalDelta">Kcal Delta:</label>
+        <fieldset>
+          <legend>Kcal Goal:</legend>
+          <div onChange={handleKcalGoalChange} required>
             <input
-              type="number"
-              id="kcalDelta"
-              value={kcalDelta}
-              onChange={handleKcalDeltaChange}
-              required
+              type="radio"
+              id="cut"
+              name="kcalGoal"
+              value="cut"
+              checked={kcalGoal === "cut"}
+              onChange={() => {}}
             />
-          </>
-        )}
+            <label htmlFor="cut">Cut</label>
 
-        <button type="submit">Update user</button>
+            <input
+              type="radio"
+              id="maintain"
+              name="kcalGoal"
+              value="maintain"
+              checked={kcalGoal === "maintain"}
+              onChange={() => {}}
+            />
+            <label htmlFor="maintain">Maintain</label>
+
+            <input
+              type="radio"
+              id="bulk"
+              name="kcalGoal"
+              value="bulk"
+              checked={kcalGoal === "bulk"}
+              onChange={() => {}}
+            />
+            <label htmlFor="bulk">Bulk</label>
+          </div>
+        </fieldset>
+
+        <button type="submit">Oppdater</button>
       </form>
-      <button onClick={() => <MainScreen />}>Go to Main Screen</button>
+
+      <button onClick={handleTakeMeBack}>Hjem</button>
     </>
   );
 };

@@ -1,24 +1,26 @@
 import React, { useState } from "react";
 import MainScrean from "./MainScrean";
 
-const token = localStorage.getItem("sessionToken");
-const userId = localStorage.getItem("userId");
-
 const postAddFood = (name, totalCalories, totalProtein) => {
-  fetch(`https://localhost:7168/addFood?tokenFromClient=${token}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: name,
-      id: 0,
-      kcal: Math.floor(totalCalories),
-      protein: Math.floor(totalProtein),
-      consumptionDateTime: new Date(Date.now()).toISOString(),
-      userId: userId,
-    }),
-  });
+  fetch(
+    `https://localhost:7168/addFood?tokenFromClient=${localStorage.getItem(
+      "sessionToken"
+    )}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: name,
+        id: 0,
+        kcal: Math.floor(totalCalories),
+        protein: Math.floor(totalProtein),
+        consumptionDateTime: new Date(Date.now()).toISOString(),
+        userId: localStorage.getItem("userId"),
+      }),
+    }
+  );
 };
 
 const AddFood = () => {
@@ -68,7 +70,7 @@ const AddFood = () => {
   if (takeMeBack) return <MainScrean />;
 
   return (
-    <main>
+    <>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
         <input
@@ -88,7 +90,7 @@ const AddFood = () => {
           required
         />
 
-        <label htmlFor="caloriesPer100g">Calories per 100g:</label>
+        <label htmlFor="caloriesPer100g">Kalorier per 100g:</label>
         <input
           type="number"
           id="caloriesPer100g"
@@ -106,7 +108,7 @@ const AddFood = () => {
           required
         />
 
-        <label htmlFor="totalCalories">Total Calories:</label>
+        <label htmlFor="totalCalories">Total Kalorier:</label>
         <input
           type="number"
           id="totalCalories"
@@ -117,10 +119,10 @@ const AddFood = () => {
         <label htmlFor="totalProtein">Total Protein:</label>
         <input type="number" id="totalProtein" value={totalProtein} readOnly />
 
-        <button type="submit">Add food</button>
+        <button type="submit">Legg til</button>
       </form>
-      <button onClick={handleTakeMeBack}>Back</button>
-    </main>
+      <button onClick={handleTakeMeBack}>Hjem</button>
+    </>
   );
 };
 

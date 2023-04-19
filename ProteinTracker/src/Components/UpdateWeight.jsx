@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-const token = localStorage.getItem("sessionToken");
+import MainScrean from "./MainScrean";
+
 const postUpdateWeight = (weight, comment) => {
   fetch(
-    `https://localhost:7168/addWeight?tokenFromClient=${token}&weight=${weight}&coment=${comment}`,
+    `https://localhost:7168/addWeight?tokenFromClient=${localStorage.getItem(
+      "sessionToken"
+    )}&weight=${weight}&coment=${comment}`,
     {
       method: "POST",
     }
@@ -12,6 +15,11 @@ const postUpdateWeight = (weight, comment) => {
 const UpdateWeight = () => {
   const [weight, setWeight] = useState("");
   const [comment, setComment] = useState("");
+  const [takeMeBack, setTakeMeBack] = useState(false);
+
+  const handleTakeMeBack = () => {
+    setTakeMeBack(true);
+  };
 
   const handleWeightChange = (e) => {
     setWeight(e.target.value);
@@ -28,27 +36,32 @@ const UpdateWeight = () => {
     setComment("");
   };
 
+  if (takeMeBack) return <MainScrean />;
+
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="weight">Weight:</label>
-      <input
-        type="number"
-        id="weight"
-        value={weight}
-        onChange={handleWeightChange}
-        required
-      />
+    <>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="weight">Weight:</label>
+        <input
+          type="number"
+          id="weight"
+          value={weight}
+          onChange={handleWeightChange}
+          required
+        />
 
-      <label htmlFor="comment">Comment:</label>
-      <input
-        type="text"
-        id="comment"
-        value={comment}
-        onChange={handleCommentChange}
-      />
+        <label htmlFor="comment">Comment:</label>
+        <input
+          type="text"
+          id="comment"
+          value={comment}
+          onChange={handleCommentChange}
+        />
 
-      <button type="submit">Update weight</button>
-    </form>
+        <button type="submit">Oppdater</button>
+      </form>
+      <button onClick={handleTakeMeBack}>Hjem</button>
+    </>
   );
 };
 
