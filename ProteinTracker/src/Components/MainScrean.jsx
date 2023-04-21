@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import AddFood from "./AddFood";
 import Loading from "./Loading";
 import UpdateWeight from "./UpdateWeight";
+import ToggleMealsAndWeights from "./ToggleMealsAndWeights";
 import UpdateUser from "./UpdateUser";
 
 const getUserInfo = (token) => {
@@ -44,6 +45,7 @@ const MainScrean = () => {
 
   const [showAddFood, setShowAddFood] = useState(false);
   const [showUpdateWaight, setShowUpdateWaight] = useState(false);
+  const [showLog, setShowLog] = useState(false);
   const [showUpdateOptions, setShowUpdateOptions] = useState(false);
 
   const handleAddFoodClick = () => {
@@ -52,6 +54,10 @@ const MainScrean = () => {
 
   const handleUpdateWaight = () => {
     setShowUpdateWaight(true);
+  };
+
+  const handleShowLog = () => {
+    setShowLog(true);
   };
 
   const handleUpdateOptions = () => {
@@ -93,10 +99,22 @@ const MainScrean = () => {
   if (loading) return <Loading />;
   if (showAddFood) return <AddFood />;
   if (showUpdateWaight) return <UpdateWeight />;
+  if (showLog) return <ToggleMealsAndWeights />;
   if (showUpdateOptions) return <UpdateUser />;
   return (
     <main>
-      <section>
+      <section
+        style={
+          todaysProtein / proteinGoal > 1.1
+            ? { background: "rgb(0, 62, 0)" }
+            : todaysProtein / proteinGoal > 1
+            ? { background: "green" }
+            : todaysProtein / proteinGoal > 0.5
+            ? { background: "orange" }
+            : { background: "red" }
+        }
+        className="overview"
+      >
         <h1>
           {todaysProtein}/{proteinGoal}
         </h1>
@@ -113,7 +131,7 @@ const MainScrean = () => {
         <button onClick={handleUpdateWaight}>Oppdater vekt</button>
       </section>
       <section>
-        <button>Logg</button>
+        <button onClick={handleShowLog}>Logg</button>
       </section>
       <section>
         <button onClick={handleUpdateOptions}>Innstilinger</button>

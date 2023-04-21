@@ -40,23 +40,27 @@ const UpdateWeight = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="weight">Weight:</label>
-        <input
-          type="number"
-          id="weight"
-          value={weight}
-          onChange={handleWeightChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className="form-styled">
+        <div>
+          <label htmlFor="weight">Weight:</label>
+          <input
+            type="number"
+            id="weight"
+            value={weight}
+            onChange={handleWeightChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="comment">Comment:</label>
-        <input
-          type="text"
-          id="comment"
-          value={comment}
-          onChange={handleCommentChange}
-        />
+        <div>
+          <label htmlFor="comment">Comment:</label>
+          <input
+            type="text"
+            id="comment"
+            value={comment}
+            onChange={handleCommentChange}
+          />
+        </div>
 
         <button type="submit">Oppdater</button>
       </form>

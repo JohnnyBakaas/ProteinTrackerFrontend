@@ -30,7 +30,7 @@ const AddFood = () => {
   const [proteinPer100g, setProteinPer100g] = useState("");
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
-  const [takeMeBack, setTakeMeBack] = useState(false);
+  const [home, setHome] = useState(false);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -63,65 +63,82 @@ const AddFood = () => {
     postAddFood(name, totalCalories, totalProtein);
   };
 
-  const handleTakeMeBack = () => {
-    setTakeMeBack(true);
+  const handleHome = () => {
+    setHome(true);
   };
 
-  if (takeMeBack) return <MainScrean />;
+  if (home) return <MainScrean />;
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={handleNameChange}
-          required
-        />
+      <form onSubmit={handleSubmit} className="form-styled">
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="grams">Grams:</label>
-        <input
-          type="number"
-          id="grams"
-          value={grams}
-          onChange={handleGramsChange}
-          required
-        />
+        <div>
+          <label htmlFor="grams">Grams:</label>
+          <input
+            type="number"
+            id="grams"
+            value={grams}
+            onChange={handleGramsChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="caloriesPer100g">Kalorier per 100g:</label>
-        <input
-          type="number"
-          id="caloriesPer100g"
-          value={caloriesPer100g}
-          onChange={handleCaloriesPer100gChange}
-          required
-        />
+        <div>
+          <label htmlFor="caloriesPer100g">Kalorier per 100g:</label>
+          <input
+            type="number"
+            id="caloriesPer100g"
+            value={caloriesPer100g}
+            onChange={handleCaloriesPer100gChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="proteinPer100g">Protein per 100g:</label>
-        <input
-          type="number"
-          id="proteinPer100g"
-          value={proteinPer100g}
-          onChange={handleProteinPer100gChange}
-          required
-        />
+        <div>
+          <label htmlFor="proteinPer100g">Protein per 100g:</label>
+          <input
+            type="number"
+            id="proteinPer100g"
+            value={proteinPer100g}
+            onChange={handleProteinPer100gChange}
+            required
+          />
+        </div>
 
-        <label htmlFor="totalCalories">Total Kalorier:</label>
-        <input
-          type="number"
-          id="totalCalories"
-          value={totalCalories}
-          readOnly
-        />
+        <div>
+          <label htmlFor="totalCalories">Total Kalorier:</label>
+          <input
+            type="number"
+            id="totalCalories"
+            value={totalCalories}
+            readOnly
+          />
+        </div>
 
-        <label htmlFor="totalProtein">Total Protein:</label>
-        <input type="number" id="totalProtein" value={totalProtein} readOnly />
+        <div>
+          <label htmlFor="totalProtein">Total Protein:</label>
+          <input
+            type="number"
+            id="totalProtein"
+            value={totalProtein}
+            readOnly
+          />
+        </div>
 
         <button type="submit">Legg til</button>
       </form>
-      <button onClick={handleTakeMeBack}>Hjem</button>
+      <button onClick={handleHome}>Hjem</button>
     </>
   );
 };
