@@ -11,6 +11,7 @@ const getUserInfo = (token) => {
   })
     .then((response) => response.json())
     .then((user) => {
+      console.log(user);
       localStorage.setItem("userId", user.value.id);
       return user.value;
     });
