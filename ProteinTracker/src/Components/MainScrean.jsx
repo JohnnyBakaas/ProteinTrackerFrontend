@@ -108,7 +108,7 @@ const MainScrean = () => {
         style={
           todaysProtein / proteinGoal > 1.1
             ? { background: "rgb(0, 62, 0)" }
-            : todaysProtein / proteinGoal > 1
+            : todaysProtein / proteinGoal > 0.9
             ? { background: "green" }
             : todaysProtein / proteinGoal > 0.5
             ? { background: "orange" }
@@ -119,11 +119,13 @@ const MainScrean = () => {
         <h1>
           {todaysProtein}/{proteinGoal}
         </h1>
-        <h3>protein</h3>
+        <h3>protein {Math.floor((todaysProtein / proteinGoal) * 100) + "%"}</h3>
         <h2>
           {todaysCalories}/{caloriesGoal}
         </h2>
-        <h3>kalorier</h3>
+        <h3>
+          kalorier {Math.floor((todaysCalories / caloriesGoal) * 100) + "%"}
+        </h3>
       </section>
       <section>
         <button onClick={handleAddFoodClick}>Legg til mat</button>

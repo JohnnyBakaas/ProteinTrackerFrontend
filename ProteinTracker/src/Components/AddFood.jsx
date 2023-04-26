@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MainScrean from "./MainScrean";
+import PresetFood from "./PresetFood";
 
 const postAddFood = (name, totalCalories, totalProtein) => {
   fetch(
@@ -31,6 +32,15 @@ const AddFood = () => {
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
   const [home, setHome] = useState(false);
+  const [presets, setPresets] = useState(false);
+
+  const handleTotalCaloriesChange = (e) => {
+    setTotalCalories(e.target.value);
+  };
+
+  const handleTotalProteinChange = (e) => {
+    setTotalProtein(e.target.value);
+  };
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -67,6 +77,11 @@ const AddFood = () => {
     setHome(true);
   };
 
+  const handlePresets = () => {
+    setPresets(true);
+  };
+
+  if (presets) return <PresetFood />;
   if (home) return <MainScrean />;
 
   return (
@@ -90,7 +105,6 @@ const AddFood = () => {
             id="grams"
             value={grams}
             onChange={handleGramsChange}
-            required
           />
         </div>
 
@@ -101,7 +115,6 @@ const AddFood = () => {
             id="caloriesPer100g"
             value={caloriesPer100g}
             onChange={handleCaloriesPer100gChange}
-            required
           />
         </div>
 
@@ -112,7 +125,6 @@ const AddFood = () => {
             id="proteinPer100g"
             value={proteinPer100g}
             onChange={handleProteinPer100gChange}
-            required
           />
         </div>
 
@@ -122,7 +134,7 @@ const AddFood = () => {
             type="number"
             id="totalCalories"
             value={totalCalories}
-            readOnly
+            onChange={handleTotalCaloriesChange}
           />
         </div>
 
@@ -132,13 +144,22 @@ const AddFood = () => {
             type="number"
             id="totalProtein"
             value={totalProtein}
-            readOnly
+            onChange={handleTotalProteinChange}
           />
         </div>
 
         <button type="submit">Legg til</button>
       </form>
-      <button onClick={handleHome}>Hjem</button>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <button onClick={handlePresets}>Presets</button>
+        <button onClick={handleHome}>Hjem</button>
+      </div>
     </>
   );
 };

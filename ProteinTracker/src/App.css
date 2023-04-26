@@ -39,3 +39,8 @@ table tbody tr td {
   border: #1a1a1a solid 1px;
   margin-bottom: 20px;
 }
+
+.PresetFood {
+  width: 400px;
+  display: block;
+}
