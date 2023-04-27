@@ -33,6 +33,11 @@ const foods = [
     kcal: 137,
     protein: 20,
   },
+  {
+    name: "YT Uten sukker Sjokolade",
+    kcal: 152,
+    protein: 21,
+  },
 ];
 
 const postAddFood = (name, totalCalories, totalProtein) => {

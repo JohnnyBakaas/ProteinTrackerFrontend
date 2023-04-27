@@ -108,9 +108,9 @@ const MainScrean = () => {
         style={
           todaysProtein / proteinGoal > 1.1
             ? { background: "rgb(0, 62, 0)" }
-            : todaysProtein / proteinGoal > 0.9
+            : todaysProtein / proteinGoal > 0.8
             ? { background: "green" }
-            : todaysProtein / proteinGoal > 0.5
+            : todaysProtein / proteinGoal > 0.3
             ? { background: "orange" }
             : { background: "red" }
         }

@@ -53,25 +53,36 @@ const ToggleMealsAndWeights = () => {
               <th>Navn</th>
               <th>Kcal</th>
               <th>Protein</th>
+              <th>Tidspunkt</th>
             </tr>
           </thead>
           <tbody>
             {data.meals
-              .map((meal) => (
-                <tr
-                  key={meal.id}
-                  style={{
-                    fontWeight:
-                      meal.consumptionDateTime.split("T")[0] === today
-                        ? "bold"
-                        : "normal",
-                  }}
-                >
-                  <td>{meal.name}</td>
-                  <td>{meal.kcal}</td>
-                  <td>{meal.protein}</td>
-                </tr>
-              ))
+              .map((meal) => {
+                const isToday =
+                  meal.consumptionDateTime.split("T")[0] === today;
+                const date = new Date(meal.consumptionDateTime);
+                const displayDate = isToday
+                  ? date.toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })
+                  : date.toLocaleDateString();
+
+                return (
+                  <tr
+                    key={meal.id}
+                    style={{
+                      fontWeight: isToday ? "bold" : "normal",
+                    }}
+                  >
+                    <td>{meal.name}</td>
+                    <td>{meal.kcal}</td>
+                    <td>{meal.protein}</td>
+                    <td>{displayDate}</td>
+                  </tr>
+                );
+              })
               .reverse()}
           </tbody>
         </table>
